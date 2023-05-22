@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Question</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            overflow-y: hidden;
+    overflow-x: hidden;
+            
+        }
+
+        .question-container {
+            text-align: center;
+        }
+
+        .story-name {
+          font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #9b59b6;
+            user-select: none;
+        }
+
+        .question {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #eee;
+        }
+        /* CSS code for the animations */
+        .animation {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    background-image: url('1.png');
+    background-size: cover;
+    pointer-events: none;
+    animation: fireworks 2s ease-in-out;
+    transform-origin: center;
+
+}
+
+.walking-image {
+    position: absolute;
+    width: 300px  ;
+    height: 300px;
+    background-image: url('ronit.png');
+    background-size: cover;
+    animation: walking 4s linear;
+    animation-fill-mode: forwards;
+    z-index: -999;
+
+}
+
+@keyframes walking {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: calc(50% - 50px);
+    }
+    52% {
+        left: calc(50% - 50px);
+        animation-play-state: paused;
+    }
+    84% {
+        left: calc(50% - 50px);
+        animation-play-state: running;
+    }
+    100% {
+        left: calc(100% - 100px);
+    }
+}
+@keyframes fireworks {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(5);
+        opacity: 0;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="question-container">
+      <div class="content"></div>
+        <div class="story-name"></div>
+        <div class="question"></div>
+    </div>
+
+    <script>
+        var questions = {
+  "The Road Not Taken / Robert Frost": [
+    "What do the two roads stand for?",
+    "How are the two roads similar? Give TWO examples.",
+    "What is the setting (time and place) of the poem? Is there any significance to the use of that specific setting?",
+    "What is the theme of the poem?",
+    "What is the process of decision making as it is described in the poem?",
+    "Why do you think Frost entitled his poem The Road Not Taken?"
+  ],
+  "Introduction to Poetry / Billy Collins": [
+    "Name two things the poet compares studying a poem to.",
+    "What is the main message of the poem?",
+    "How does Collins want students to explore a poem?",
+    "According to Collins, how do students wish to learn a poem?",
+    "What is your own opinion about studying poetry? Compare it with the ideas presented in the poem."
+  ],
+  "Mr. Know All / Somerset Maugham": [
+    "What is the setting (time and place) of the story? Why do you think the author chose this specific setting for his story?",
+    "Why does Mr. Kelada use many typical British expressions? What does he want to prove? Why?",
+    "Describe Mr. Kelada's outer appearance and his behavior on board.",
+    "What is the theme of the story? How is it expressed in the story?",
+    "Who tells the story? What do you know about him?",
+    "Compare and contrast Mr. Kelada and Mr. Ramsay.",
+    "Explain what the narrator doesn't like about Mr. Kelada before he meets him and what he doesn't like after he meets him.",
+    "The narrator expresses racial prejudice throughout the story. Give at least two examples.",
+    "Mr. Kelada and Mrs. Ramsay are described in a certain way. However, at the end of the story, we realize that the descriptions are not really accurate. Explain.",
+    "What is the message of the story?"
+  ],
+  "A summer's Reading / Bernard Malamud": [
+    "How does George spend his days during the summer? What does he do during the evenings?",
+    "What do you know about George's family?",
+    "What do you know about the neighborhood George lives in?",
+    "Compare and contrast between George and Mr. Cattanzara.",
+    "In what way does Mr. Cattanzara's job fit his role in the story?",
+    "At the end of the story, George walks into the library, chooses 100 books, sits down, and starts reading. Do you think he will finish reading all the books? Explain your answer by giving information from the story?"
+  ],
+  "Rules of the Game / Amy Tan": [
+    "How does Mrs. Jong teach Waverly the meaning of 'invisible strength'?",
+    "What do you know about Waverly's family?",
+    "How does Waverly get her mother's permission to participate in local tournaments?",
+    "What is the main conflict that dominates the story?",
+    "Explain the concept of 'invisible strength'. How does Waverly benefit from it?"
+  ]
+};
+
+var storyNames = Object.keys(questions);
+var randomStoryIndex = Math.floor(Math.random() * storyNames.length);
+var randomStoryName = storyNames[randomStoryIndex];
+var randomQuestions = questions[randomStoryName];
+var randomQuestion = randomQuestions[Math.floor(Math.random() * randomQuestions.length)];
+
+var storyNameElement = document.querySelector('.story-name');
+var questionElement = document.querySelector('.question');
+storyNameElement.textContent = randomStoryName;
+questionElement.textContent = randomQuestion;
+
+
+
+var images = [
+    '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', 
+];
+function getRandomImage() {
+    var randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+}
+function getRandomRotation() {
+    var randomRotation = Math.floor(Math.random() * 360);
+    return randomRotation;
+}
+
+function createFireworkAnimation(x, y) {
+    var animation = document.createElement('div');
+    animation.classList.add('animation');
+    animation.style.left = x + 'px';
+    animation.style.top = y + 'px';
+    animation.style.backgroundImage = 'url("' + getRandomImage() + '")';
+    animation.style.transform = 'rotate(' + getRandomRotation() + 'deg)';
+
+    document.body.appendChild(animation);
+
+    setTimeout(function() {
+        document.body.removeChild(animation);
+    }, 2000);
+}
+
+document.addEventListener('click', function(event) {
+    var x = event.clientX;
+    var y = event.clientY;
+
+    createFireworkAnimation(x, y);
+});
+
+setInterval(function() {
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
+
+    createFireworkAnimation(Math.floor(Math.random() * screenWidth), Math.floor(Math.random() * screenHeight));
+    createFireworkAnimation(Math.floor(Math.random() * screenWidth), Math.floor(Math.random() * screenHeight));
+    createFireworkAnimation(Math.floor(Math.random() * screenWidth), Math.floor(Math.random() * screenHeight));
+    createFireworkAnimation(Math.floor(Math.random() * screenWidth), Math.floor(Math.random() * screenHeight));
+}, Math.random() * 6000);
+
+
+
+function createWalkingAnimation() {
+    var walkingImage = document.createElement('div');
+    walkingImage.classList.add('walking-image');
+    walkingImage.style.top = Math.floor(Math.random() * (window.innerHeight - 100)) + 'px';
+
+    walkingImage.addEventListener('animationend', function() {
+        document.body.removeChild(walkingImage);
+    });
+
+    document.body.appendChild(walkingImage);
+}
+
+document.addEventListener('click', function(event) {
+    var x = event.clientX;
+    var y = event.clientY;
+
+    createFireworkAnimation(x, y);
+});
+
+setInterval(function() {
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
+    var randomX = Math.floor(Math.random() * screenWidth);
+    var randomY = Math.floor(Math.random() * screenHeight);
+
+    createFireworkAnimation(randomX, randomY);
+}, 1000);
+
+setTimeout(createWalkingAnimation, 15 * 1000);
+    </script>
+</body>
+</html>
