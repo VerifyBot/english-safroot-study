@@ -1,4 +1,4 @@
-# english-safroot-study
+# English Safroot (Literature) Studying
 > Fun studying for the English literature exam 😃 <br>
 
 👉 Go ahead and enjoy studying [by clicking here](https://verifybot.github.io/english-safroot-study/)!
